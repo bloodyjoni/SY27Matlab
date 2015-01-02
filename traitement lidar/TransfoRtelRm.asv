@@ -1,0 +1,13 @@
+
+function [ result ] = TransfoRtelRm( L,B,pc )
+%UNTITLED2 Summary of this function goes here
+%   Detailed explanation goes here
+    %for i from 1 to pc.size do
+     
+        result[i].y=pc[i].x+ B;
+        result[i].y=pc[i].y + L;
+        
+
+
+end
+
