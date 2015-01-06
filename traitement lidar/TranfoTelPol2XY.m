@@ -10,9 +10,11 @@ function [ pListXY ] = TranfoTelPol2XY( pc,angleRangeLeft,angleResolution )
         %longitudinale , l'abscisse du repere télémetre
         %TODO
         iangle= angleRangeLeft -(inbTick * angleResolution); % voir pour rendre plus fiable
-
-        iX= cos(iangle)*iDistance;
-        iY=-sin(iangle)*iDistance;
+        iangleRad= (iangle*pi)/180;
+        disp(iangle)
+        disp(iangleRad)
+        iX= cos(iangleRad)*iDistance; %les cosinus/sinus et les degrés, sale histoire.
+        iY= sin(iangleRad)*iDistance;
         spXY= ClassScanPointXY();
         spXY.X=iX;
         spXY.Y=iY;

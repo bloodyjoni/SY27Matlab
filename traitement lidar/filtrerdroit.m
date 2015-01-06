@@ -4,9 +4,9 @@ function [ result ] = filtrerdroit( pc,xmax,ymax )
 result={};
 index=1;
 for cpt=1 : size(pc) 
-    if pc(cpt).X<xmax % tant que l'ordonnée ne dapasse pas a droite
-        if pc(cpt).X>-xmax
-            if pc(cpt).Y>ymax
+    if pc(cpt).Y<ymax % tant que l'ordonnée ne dapasse pas a droite
+        if pc(cpt).Y>-ymax
+            if pc(cpt).X<xmax
                 result=cat(1,result,pc(cpt));
             end
         end

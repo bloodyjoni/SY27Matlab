@@ -6,8 +6,8 @@ function [ result ] = TransfoRtelRm( pc,L,B )
      result={};
     for i=1: size(pc)
         pointXY=ClassScanPointXY();
-        pointXY.X=pc(i).X+ B;
-        pointXY.Y=pc(i).X + L;
+        pointXY.X=pc(i).X+ L;
+        pointXY.Y=pc(i).Y + B;
         result=cat(1,result,pointXY);
     end
 end
