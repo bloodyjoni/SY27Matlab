@@ -29,10 +29,10 @@ angleRangeRight=-50;
 pc=acquireLidar();
 
 pListXY=TranfoTelPol2XY(pc,angleRangeLeft,angleResolution);
-pListXY2=TransfoRtelRm(pListXY,L,B);
+pListXY=TransfoRtelRm(pListXY,L,B);
 if (phy<valLimitePhy)
     % cas boite englobae droite
-   pListPtsDetected=filtrerdroit(pListXY2,xmax,ymax);
+   pListPtsDetected=filtrerdroit(pListXY,xmax,ymax);
     
     %visualiserpc
     if size(pListPtsDetected) ~= 0;
@@ -58,14 +58,5 @@ else
     %visualiser pts
     
 end
-% affichage des points
-fig=figure();
-subplot(2,2,1);
-plot (pc.pointList.distance,pc.pointList.nbTick)
-subplot(2,2,2)
-plot (pListXY.X,pListXY.Y)
-subplot(2,2,3)
-plot (pListXY2.X,pListXY2.Y)
-subplot (2,2,4)
-plot (pListPtsDetected.X,pListPtsDetected.Y)
+subplot
 
