@@ -5,8 +5,6 @@ classdef ClassScanPointXY
     properties
         X;
         Y;
-        distance;
-        angle;
     end
     
     methods

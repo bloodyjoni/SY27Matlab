@@ -11,8 +11,8 @@ function [ pListXY ] = TranfoTelPol2XY( pc,angleRangeLeft,angleResolution )
         %TODO
         iangle= angleRangeLeft -(inbTick * angleResolution); % voir pour rendre plus fiable
         iangleRad= (iangle*pi)/180;
-        disp(iangle)
-        disp(iangleRad)
+        %disp(iangle)
+        %disp(iangleRad)
         iX= cos(iangleRad)*iDistance; %les cosinus/sinus et les degrés, sale histoire.
         iY= sin(iangleRad)*iDistance;
         spXY= ClassScanPointXY();

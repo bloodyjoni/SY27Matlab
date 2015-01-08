@@ -1,27 +1,30 @@
 
 
 global L; %
+global l;
 global B; % bias sur l'alignement du capteur
 global Theta;% angle max pour detection crculaire
 global e;% distance entre repere et roue arriere
 global xmax;
 global ymax;% distance en y max de detection
-global Phy;
+global phy;
 global valLimitePhy;
 global angleResolution;
 global angleRangeLeft;
 global angleRangeRight;
-L=200;
+L=300;% longueur voiture (cm)
+l=200;%longueur entre essieu (m)
 B=0;
 Theta=30;
-e=1; 
-ymax=90;% 1/2 largeur voiture
-xmax=380;% longuer max devant la voiture pour detection droite
-phy=10;
-valLimitePhy=30;
+e=90;  % longueur entre essieu (cm)
+ymax=100;% 1/2 largeur voiture
+xmax=440;% longuer max devant la voiture pour detection droite
+phy=45;
+valLimitePhy=5;
 angleResolution=110/1100;
 angleRangeLeft=50;
 angleRangeRight=-50;
+Epsilon=15; % ajouter en fct vitesse;
 %
 %pc desiré( liste { x; y;}}
 %
@@ -32,6 +35,11 @@ pListXY=TranfoTelPol2XY(pc,angleRangeLeft,angleResolution);
 pListXY2=TransfoRtelRm(pListXY,L,B);
 if (phy<valLimitePhy)
     % cas boite englobae droite
+    for i=0:xmax
+        %limdroite(i,1)={i;ymax};
+        %limgauche(i,1)={i;ymax};
+        
+    end
    pListPtsDetected=filtrerdroit(pListXY2,xmax,ymax);
     
     %visualiserpc
@@ -39,19 +47,44 @@ if (phy<valLimitePhy)
        disp('Houston We have a problem');
     end
 else
-    ro=L/ tan(Phy);
+   % phy=-90+phy;
+    phy=((phy*pi)/180);
+    ro=L/tan(phy)% souci négativité HERE!!!
     % placement Cir
-    Cir1={ro-e;0}
-    Cir2={ro+e;0}
+    %Cir1=ClassScanPointXY();
+    %Cir2=ClassScanPointXY();
+    %Cir1.X=ro-e;%gauche % pas bon ça!QuoiQue
+    %Cir1.Y=0;
+    %Cir2.Y=ro+e;%droite
+    %Cir2.X=0;
+    Cir=ClassScanPointXY();
+    Cir.X=0;
+    Cir.Y=ro;
     
     %Calcul Rayon
-    R1=sqrt((ro-e)^2 +L^2);
+    R1=sqrt((ro-e)^2 +L^2)
     
-    R2=sqrt((ro-e)^2 +L^2);
+    R2=sqrt((ro+e)^2 +L^2)
+   %calcul phygauche
+    phyg=atan(L/(ro-e));%radian
+    phyd=atan(L/(ro+e));%radian phyd infeirue => normal si virage à gauche
+    phyg*180/pi% pas bon
+   %Calcul arc de cercle
+    tabCg=generatePts(Cir,Epsilon,R1,phyg,L);
+    tabCd=generatePts(Cir,Epsilon,R2,phyd,L);
+    %
+    %affichage
+    testg={tabCg.X;tabCg.Y};
+    testg=cell2mat(testg);
     
-    %Calcul arc de cercle
-    tabCg=generatePts(Theta,Cir1.x,Cir1.y,R,ro);
-    tabCd=generatePts(Theta,Cir2.x,Cir2.y,R,ro);
+    testd={tabCd.X;tabCd.Y};
+    testd=cell2mat(testd);
+    
+    plot(Cir.X,Cir.Y,testg(1,:),testg(2,:),testd(1,:),testd(2,:));
+    xlabel('abscissesX');
+    ylabel('ordonnéesY');
+    %plot(test(1,:),test(2,:));
+    % plot ([tabCg.X,tabCg.Y])
     
     filtrercourbe(pListXY,tabCg,tabCd);
     
