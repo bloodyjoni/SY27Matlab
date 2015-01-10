@@ -1,4 +1,4 @@
-function [ result ] = generatePts(Cirpt, Epsilon,R,offsetPhy,L)
+function [ result ] = generatePtsd(Cirpt, Epsilon,R,offsetPhy,L)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
   
@@ -6,7 +6,7 @@ function [ result ] = generatePts(Cirpt, Epsilon,R,offsetPhy,L)
     for i=0:Epsilon
         %angleRad=((i*pi)-(2*pi-offsetphy))/180;%offsetphy angle entre origine0°CIR et angle roue
         %angleRad=(((3*pi)/2)+offsetPhy)+(i*pi)/180 %offsetphy angle entre origine0°CIR et angle roue
-        angleRad=((-pi/2)+offsetPhy)+((i*pi)/180);
+        angleRad=(((pi/2)+offsetPhy)-((i*pi)/180));
         pointXY=ClassScanPointXY();
         %génération point  arc de cercle
         % inversion car re^père inversé

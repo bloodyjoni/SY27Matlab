@@ -1,10 +1,10 @@
-function [ result ] = filtrercourbe( pc,tbg,tbd,Epsilon)
+function [ result ] = filtrercourbed( pc,tbg,tbd,Epsilon)
 %UNTITLED6 Summary of this function goes here
 %   Detailed explanation goes here
     
 index=1;
 result={};
-xmax= max([tbg(Epsilon+1).X,tbd(Epsilon+1).X]);% on repère la distance maximum de l'espace navigable Selon l'angle X
+xmax= max([tbg(Epsilon+1).X,tbd(Epsilon+1).X])% on repère la distance maximum de l'espace navigable Selon l'angle X
 
     for cpt=1 : length(pc) 
         % On cherche dans les points des courbes des correspondances dans les
@@ -25,8 +25,6 @@ xmax= max([tbg(Epsilon+1).X,tbd(Epsilon+1).X]);% on repère la distance maximum d
                 ptd=tbd(i);
             end
         end
-
-
         if (pc(cpt).Y<ptg.Y) 
             if(pc(cpt).Y>ptd.Y) % si dans l'intervalle d'ordonnées
                 if (pc(cpt).X<xmax)

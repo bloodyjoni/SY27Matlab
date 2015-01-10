@@ -1,6 +1,6 @@
 function [ pc ] = Sample( )
-ClassScanPoint
-ClassPointCloud
+ClassScanPoint;
+ClassPointCloud;
 
 pc= ClassPointCloud();
 
